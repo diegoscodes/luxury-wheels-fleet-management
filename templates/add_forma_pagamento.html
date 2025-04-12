@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Forma de Pagamento</title>
+</head>
+<body>
+    <h1>Adicionar Forma de Pagamento</h1>
+    <form method="POST">
+        Tipo: <input type="text" name="tipo" required><br>
+        Descrição: <input type="text" name="descricao"><br>
+        <button type="submit">Salvar</button>
+    </form>
+    <a href="{{ url_for('listar_formas_pagamento') }}">Voltar</a>
+</body>
+</html>

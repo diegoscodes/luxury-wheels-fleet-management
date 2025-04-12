@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">{{ modelo }}</h4>
+        </div>
+        <div class="card-body row">
+            <div class="col-md-6 text-center">
+                {% if imagem %}
+                    <img src="{{ url_for('static', filename='imagens/' ~ imagem) }}"
+                         class="img-fluid rounded shadow" width="100%" alt="Imagem do veículo">
+                {% else %}
+                    <p class="text-muted">Imagem não disponível para este veículo.</p>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Marca:</strong> {{ marca }}</li>
+                    <li class="list-group-item"><strong>Categoria:</strong> {{ categoria }}</li>
+                    <li class="list-group-item"><strong>Transmissão:</strong> {{ transmissao }}</li>
+                    <li class="list-group-item"><strong>Capacidade:</strong> {{ capacidade }}</li>
+                    <li class="list-group-item"><strong>Status:</strong> {{ status }}</li>
+                    <li class="list-group-item"><strong>Placa:</strong> {{ placa }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="display-4 fw-bold mb-4 text-primary">
+        Bem-vindo à Plataforma Luxury Wheels
+    </h1>
+
+    <p class="lead mb-5 text-muted">
+        Gerencie sua frota de veículos de forma inteligente, profissional e eficiente.
+    </p>
+
+    <!-- Banner com sombra, borda e destaque -->
+    <img src="{{ url_for('static', filename='banner_luxury.png') }}"
+         alt="Banner Luxury Wheels"
+         style="width: 30%; height: auto; margin-top: -30px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.5); border: 4px solid #007bff;">
+
+</div>
+
+<!-- Rodapé discreto -->
+<footer class="text-center mt-5 text-muted small">
+    <hr>
+    <small>© 2025 Luxury Wheels — Sistema desenvolvido por <strong>Diego Santos</strong>, Especialista em Soluções para Frotas Inteligentes.</small>
+</footer>
+{% endblock %}

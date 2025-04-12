@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold"><i class="bi bi-tools"></i> Manutenções</h3>
+        <a href="{{ url_for('adicionar_manutencao') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Nova Manutenção
+        </a>
+    </div>
+
+    {% if manutencoes %}
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Veículo</th>
+                        <th>Placa</th>
+                        <th>Descrição</th>
+                        <th>Custo</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in manutencoes %}
+                        <tr class="text-center">
+                            <td>{{ m[0] }}</td>
+                            <td>{{ m[1] }}</td>
+                            <td>{{ m[2] }}</td>
+                            <td>{{ m[3] }}</td>
+                            <td>R$ {{ m[4] }}</td>
+                            <td>{{ m[5] }}</td>
+                            <td>
+                                <a href="{{ url_for('editar_manutencao', id=m[0]) }}" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <form action="{{ url_for('deletar_manutencao', id=m[0]) }}" method="POST" style="display:inline-block;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir esta manutenção?')">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            Nenhuma manutenção registrada.
+        </div>
+    {% endif %}
+{% endblock %}

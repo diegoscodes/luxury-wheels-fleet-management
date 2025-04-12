@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="mb-4"><i class="bi bi-graph-up"></i> Dashboard Geral</h3>
+
+    <!-- 🔔 Alertas Compactos -->
+    <div class="row text-center mb-4">
+        {% if vencidas %}
+        <div class="col-md-6 mb-3">
+            <div class="card border-danger shadow-sm p-3">
+                <h5 class="text-danger mb-0">
+                    <i class="bi bi-exclamation-triangle-fill"></i> Revisões Vencidas
+                </h5>
+                <h1 class="text-danger">{{ vencidas | length }}</h1>
+            </div>
+        </div>
+        {% endif %}
+        {% if proximas %}
+        <div class="col-md-6 mb-3">
+            <div class="card border-warning shadow-sm p-3">
+                <h5 class="text-warning mb-0">
+                    <i class="bi bi-hourglass-split"></i> Próximas 5 Dias
+                </h5>
+                <h1 class="text-warning">{{ proximas | length }}</h1>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- 🔢 Indicadores -->
+    <div class="row text-center mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card text-bg-primary shadow-sm p-3">
+                <h5><i class="bi bi-truck-front"></i> Veículos</h5>
+                <h2>{{ total_veiculos }}</h2>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-bg-success shadow-sm p-3">
+                <h5><i class="bi bi-calendar-check"></i> Reservas</h5>
+                <h2>{{ total_reservas }}</h2>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-bg-warning shadow-sm p-3">
+                <h5><i class="bi bi-tools"></i> Manutenções</h5>
+                <h2>{{ total_manutencoes }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📊 Gráficos -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card p-3 shadow-sm">
+                <h5 class="text-center">Reservas por Veículo</h5>
+                <img src="{{ grafico_reservas }}" class="img-fluid" alt="Gráfico de Reservas">
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card p-3 shadow-sm">
+                <h5 class="text-center">Manutenções por Veículo</h5>
+                <img src="{{ grafico_manutencao }}" class="img-fluid" alt="Gráfico de Manutenções">
+            </div>
+        </div>
+    </div>
+{% endblock %}

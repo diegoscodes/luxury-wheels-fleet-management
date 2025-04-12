@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold"><i class="bi bi-truck-front"></i> Veículos Cadastrados</h3>
+        <a href="{{ url_for('cadastrar_veiculo') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Novo Veículo
+        </a>
+    </div>
+
+    {% if veiculos %}
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Categoria</th>
+                        <th>Transmissão</th>
+                        <th>Tipo</th>
+                        <th>Capacidade</th>
+                        <th>Placa</th>
+                        <th>Diária</th>
+                        <th>Status</th>
+                        <th>Última Revisão</th>
+                        <th>Próxima Revisão</th>
+                        <th>Inspeção</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+{% for v in veiculos %}
+    <tr class="text-center">
+        <td>{{ v.id }}</td>
+        <td>{{ v.marca }}</td>
+        <td>
+            <a href="{{ url_for('exibir_imagem_veiculo', veiculo_id=v.id) }}" class="text-decoration-none">
+                {{ v.modelo }}
+            </a>
+        </td>
+        <td>{{ v.categoria }}</td>
+        <td>{{ v.transmissao }}</td>
+        <td>{{ v.tipo }}</td>
+        <td>{{ v.capacidade }}</td>
+        <td>{{ v.placa }}</td>
+        <td>R$ {{ v.diaria }}</td>
+        <td>{{ v.status }}</td>
+        <td>{{ v.ultima_revisao }}</td>
+        <td>{{ v.proxima_revisao }}</td>
+        <td>{{ v.inspecao }}</td>
+        <td>
+            <a href="{{ url_for('editar_veiculo', id=v.id) }}" class="btn btn-sm btn-primary">
+                <i class="bi bi-pencil-square"></i>
+            </a>
+            <form action="{{ url_for('deletar_veiculo', id=v.id) }}" method="POST" style="display:inline-block;">
+                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Deseja realmente excluir este veículo?')">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </form>
+        </td>
+    </tr>
+{% endfor %}
+</tbody>
+
+
+
+
+
+
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            Nenhum veículo cadastrado no momento.
+        </div>
+    {% endif %}
+{% endblock %}

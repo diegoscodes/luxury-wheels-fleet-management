@@ -1,0 +1,24 @@
+import json
+import os
+from datetime import date
+
+def verificar_envio_diario():
+    caminho = "alerta_status.json"
+    hoje = str(date.today())
+
+    # Se o arquivo não existe, cria e envia o e-mail
+    if not os.path.exists(caminho):
+        with open(caminho, "w") as f:
+            json.dump({"data": hoje}, f)
+        return True  # deve enviar
+
+    # Se existe, verifica a data
+    with open(caminho, "r") as f:
+        dados = json.load(f)
+
+    if dados.get("data") != hoje:
+        with open(caminho, "w") as f:
+            json.dump({"data": hoje}, f)
+        return True  # deve enviar
+
+    return False  # já foi enviado hoje

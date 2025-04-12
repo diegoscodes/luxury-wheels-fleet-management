@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="mb-4"><i class="bi bi-plus-circle"></i> Novo Pagamento</h3>
+
+    <form method="POST" class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label">Reserva</label>
+            <select name="reserva_id" class="form-select" required>
+                {% for reserva in reservas %}
+                    <option value="{{ reserva[0] }}">Reserva #{{ reserva[0] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Forma de Pagamento</label>
+            <select name="forma_pagamento_id" class="form-select" required>
+                {% for forma in formas %}
+                    <option value="{{ forma[0] }}">{{ forma[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Valor (R$)</label>
+            <input type="number" step="0.01" name="valor" class="form-control" required>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Data do Pagamento</label>
+            <input type="date" name="data_pagamento" class="form-control" required>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Status</label>
+            <input type="text" name="status" class="form-control">
+        </div>
+
+        <div class="col-12 text-end mt-4">
+            <a href="{{ url_for('listar_pagamentos') }}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-save2"></i> Salvar
+            </button>
+        </div>
+    </form>
+{% endblock %}

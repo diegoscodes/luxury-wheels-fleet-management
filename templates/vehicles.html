@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold"><i class="bi bi-truck-front"></i> Veículos Cadastrados</h3>
+    <a href="{{ url_for('cadastrar_veiculo') }}" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Novo Veículo
+    </a>
+</div>
+
+<!-- 🔍 FORMULÁRIO DE FILTRO -->
+<form method="POST" class="row g-3 mb-4">
+    <div class="col-md-2">
+        <input type="text" name="marca" class="form-control" placeholder="Marca" value="{{ filtro_marca or '' }}">
+    </div>
+    <div class="col-md-2">
+        <input type="text" name="modelo" class="form-control" placeholder="Modelo" value="{{ filtro_modelo or '' }}">
+    </div>
+    <div class="col-md-2">
+        <select name="tipo" class="form-select">
+            <option value="">Tipo</option>
+            <option value="Flex" {% if filtro_tipo == 'Flex' %}selected{% endif %}>Flex</option>
+            <option value="Gasolina" {% if filtro_tipo == 'Gasolina' %}selected{% endif %}>Gasolina</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+  <select name="categoria" class="form-select">
+    <option value="">Categoria</option>
+    <option value="SUV" {% if filtro_categoria == 'SUV' %}selected{% endif %}>SUV</option>
+    <option value="Sedan" {% if filtro_categoria == 'Sedan' %}selected{% endif %}>Sedan</option>
+    <option value="Hatchback" {% if filtro_categoria == 'Hatchback' %}selected{% endif %}>Hatchback</option>
+  </select>
+</div>
+
+    <div class="col-md-2">
+        <select name="status" class="form-select">
+            <option value="">Status</option>
+            <option value="Disponível" {% if filtro_status == 'Disponível' %}selected{% endif %}>Disponível</option>
+            <option value="Alugado" {% if filtro_status == 'Alugado' %}selected{% endif %}>Alugado</option>
+            <option value="Em manutenção" {% if filtro_status == 'Em manutenção' %}selected{% endif %}>Em manutenção</option>
+        </select>
+    </div>
+    <div class="col-md-1 d-grid">
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+    <div class="col-md-1 d-grid">
+        <a href="{{ url_for('listar_veiculos') }}" class="btn btn-outline-secondary">Limpar</a>
+    </div>
+</form>
+
+
+
+{% if veiculos %}
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>ID</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Categoria</th>
+                    <th>Transmissão</th>
+                    <th>Tipo</th>
+                    <th>Capacidade</th>
+                    <th>Placa</th>
+                    <th>Diária</th>
+                    <th>Status</th>
+                    <th>Última Revisão</th>
+                    <th>Próxima Revisão</th>
+                    <th>Inspeção</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in veiculos %}
+                <tr class="text-center">
+                    <td>{{ v[0] }}</td>
+                    <td>{{ v[1] }}</td>
+                    <td>
+                        <a href="{{ url_for('exibir_imagem_veiculo', veiculo_id=v[0]) }}" class="text-decoration-none">
+                            {{ v[2] }}
+                        </a>
+                    </td>
+                    <td>{{ v[3] }}</td>
+                    <td>{{ v[4] }}</td>
+                    <td>{{ v[5] }}</td>
+                    <td>{{ v[6] }}</td>
+                    <td>{{ v[13] }}</td>
+                    <td>R$ {{ v[7] }}</td>
+                    <td>{{ v[12] }}</td>
+                    <td>{{ v[8] }}</td>
+                    <td>{{ v[9] }}</td>
+                    <td>{{ v[10] }}</td>
+                    <td>
+                        <a href="{{ url_for('editar_veiculo', id=v[0]) }}" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <form action="{{ url_for('deletar_veiculo', id=v[0]) }}" method="POST" style="display:inline-block;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Deseja realmente excluir este veículo?')">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info text-center">
+        Nenhum veículo cadastrado no momento.
+    </div>
+{% endif %}
+{% endblock %}
