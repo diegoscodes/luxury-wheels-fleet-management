@@ -1,6 +1,6 @@
 # 🚗 Luxury Wheels – Fleet Management System (Python + Flask)
 
-![Dashboard Preview](entrega_final/prints/Dashboard.png)
+![Dashboard Preview](entrega_final/prints/dashboard.png)
 
 **Luxury Wheels** is a complete fleet and car rental management system built with **Python**, **Flask**, and **SQLite**, enabling vehicle, customer, booking, payment, and maintenance control with automated alerts and analytics.
 
