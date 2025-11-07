@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="mb-4"><i class="bi bi-pencil-square"></i> Editar Cliente</h3>
+
+    <form method="POST" class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label">Nome</label>
+            <input type="text" name="nome" value="{{ cliente[1] }}" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" value="{{ cliente[2] }}" class="form-control">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Telefone</label>
+            <input type="text" name="telefone" value="{{ cliente[3] }}" class="form-control">
+        </div>
+
+        <div class="col-12 text-end mt-4">
+            <a href="{{ url_for('listar_clientes') }}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save2"></i> Atualizar
+            </button>
+        </div>
+    </form>
+{% endblock %}

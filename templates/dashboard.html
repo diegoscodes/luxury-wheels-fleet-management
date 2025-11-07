@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-4 d-flex justify-content-between align-items-center">
+  <h3 class="fw-bold"><i class="bi bi-graph-up"></i> Dashboard Geral</h3>
+  <form method="POST" class="row g-2">
+    <div class="col">
+      <select class="form-select" name="selecao" id="selecaoSecao" onchange="exibirSecao()">
+        <option value="">Exibir Tudo</option>
+        <option value="secao-alertas">Alertas</option>
+        <option value="secao-indicadores">Indicadores</option>
+        <option value="secao-financeiro">Financeiro</option>
+        <option value="secao-graficos">Gráficos</option>
+        <option value="secao-revisoes">Revisões / Inspeções</option>
+        <option value="secao-alugados">Veículos Alugados</option>
+        <option value="secao-clientes">Últimos Clientes</option>
+        <option value="secao-tipo-categoria">Tipo e Categoria</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <a href="{{ url_for('exportar_tudo', formato='xlsx') }}" class="btn btn-outline-success">
+        <i class="bi bi-download"></i> Exportar
+      </a>
+    </div>
+  </form>
+</div>
+
+<!-- 🔔 ALERTAS -->
+<div id="secao-alertas">
+  <div class="row text-center mb-4">
+    {% if vencidas %}
+    <div class="col-md-6 mb-3">
+      <div class="card border-danger shadow-sm p-3">
+        <h5 class="text-danger"><i class="bi bi-exclamation-triangle-fill"></i> Revisões Vencidas</h5>
+        <h1 class="text-danger">{{ vencidas | length }}</h1>
+      </div>
+    </div>
+    {% endif %}
+    {% if proximas %}
+    <div class="col-md-6 mb-3">
+      <div class="card border-warning shadow-sm p-3">
+        <h5 class="text-warning"><i class="bi bi-hourglass-split"></i> Revisões em 5 Dias</h5>
+        <h1 class="text-warning">{{ proximas | length }}</h1>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- 🔢 INDICADORES -->
+<div id="secao-indicadores">
+  <div class="row text-center mb-4">
+    <div class="col-md-4 mb-3">
+      <div class="card text-bg-primary shadow-sm p-3">
+        <h5><i class="bi bi-truck-front"></i> Veículos</h5>
+        <h2>{{ total_veiculos }}</h2>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card text-bg-success shadow-sm p-3">
+        <h5><i class="bi bi-calendar-check"></i> Reservas</h5>
+        <h2>{{ total_reservas }}</h2>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card text-bg-warning shadow-sm p-3">
+        <h5><i class="bi bi-tools"></i> Manutenções</h5>
+        <h2>{{ total_manutencoes }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 💰 FINANCEIRO -->
+<div id="secao-financeiro">
+  <div class="row text-center mb-4">
+    <div class="col-md-6 mb-3">
+      <div class="card text-bg-dark shadow-sm p-3">
+        <h5><i class="bi bi-calendar3"></i> Reservas no Mês</h5>
+        <h2>{{ total_reservas_mes }}</h2>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card text-bg-dark shadow-sm p-3">
+        <h5><i class="bi bi-currency-dollar"></i> Financeiro Confirmado</h5>
+        <h2>R$ {{ '%.2f' | format(total_financeiro_mes) }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 📊 GRÁFICOS -->
+<div id="secao-graficos">
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card p-3 shadow-sm">
+        <h5 class="text-center">Reservas por Veículo</h5>
+        <img src="{{ grafico_reservas }}" class="img-fluid" alt="Gráfico de Reservas">
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card p-3 shadow-sm">
+        <h5 class="text-center">Manutenções por Veículo</h5>
+        <img src="{{ grafico_manutencao }}" class="img-fluid" alt="Gráfico de Manutenções">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🔍 REVISÕES -->
+<div id="secao-revisoes">
+  <div class="card mt-5">
+    <div class="card-header bg-warning text-dark">
+      <h5><i class="bi bi-tools"></i> Revisões e Inspeções a Vencer</h5>
+    </div>
+    <div class="card-body">
+      {% if veiculos_alerta %}
+      <table class="table table-bordered text-center align-middle">
+        <thead class="table-secondary">
+          <tr>
+            <th>Modelo</th>
+            <th>Placa</th>
+            <th>Próxima Revisão</th>
+            <th>Inspeção</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for v in veiculos_alerta %}
+          <tr>
+            <td>{{ v.modelo }}</td>
+            <td>{{ v.placa }}</td>
+            <td>{{ v.proxima_revisao or "-" }}</td>
+            <td>{{ v.inspecao or "-" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="text-muted">Nenhum veículo com revisão ou inspeção próxima.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- 🚗 VEÍCULOS ALUGADOS -->
+<div id="secao-alugados">
+  <h4 class="mt-4"><i class="bi bi-clock-history"></i> Veículos Alugados</h4>
+  <table class="table table-bordered align-middle text-center">
+    <thead class="table-secondary">
+      <tr>
+        <th>Modelo</th>
+        <th>Cliente</th>
+        <th>Data de Devolução</th>
+        <th>Dias Restantes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in veiculos_alugados %}
+      <tr>
+        <td>{{ v[0] }}</td>
+        <td>{{ v[1] }}</td>
+        <td>{{ v[2] }}</td>
+        <td>{{ v[3] }} dias</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="4" class="text-muted">Nenhum veículo alugado.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- 👥 ÚLTIMOS CLIENTES -->
+<div id="secao-clientes">
+  <div class="card mt-4">
+    <div class="card-header bg-secondary text-white">
+      <h5>Últimos Clientes</h5>
+    </div>
+    <div class="card-body">
+      {% if ultimos_clientes %}
+      <ul class="list-group">
+        {% for cliente in ultimos_clientes %}
+        <li class="list-group-item">
+          <strong>{{ cliente[0] }}</strong> - {{ cliente[1] }} | {{ cliente[2] }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="text-muted">Nenhum cliente encontrado.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- 🚙 TIPO E CATEGORIA -->
+<div id="secao-tipo-categoria" class="mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-info text-white">
+          <h5><i class="bi bi-car-front"></i> Veículos por Tipo</h5>
+        </div>
+        <div class="card-body">
+          {% if not veiculos_por_tipo.empty %}
+          <ul class="list-group">
+            {% for index, row in veiculos_por_tipo.iterrows() %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{ row.tipo }}
+              <span class="badge bg-primary rounded-pill">{{ row.total }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p class="text-muted">Nenhum tipo encontrado.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+          <h5><i class="bi bi-tags"></i> Veículos por Categoria</h5>
+        </div>
+        <div class="card-body">
+          {% if not veiculos_por_categoria.empty %}
+          <ul class="list-group">
+            {% for index, row in veiculos_por_categoria.iterrows() %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{ row.categoria }}
+              <span class="badge bg-success rounded-pill">{{ row.total }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p class="text-muted">Nenhuma categoria encontrada.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function exibirSecao() {
+    const secaoSelecionada = document.getElementById("selecaoSecao").value;
+    const secoes = [
+      "secao-alertas", "secao-indicadores", "secao-financeiro",
+      "secao-graficos", "secao-revisoes", "secao-alugados",
+      "secao-clientes", "secao-tipo-categoria"
+    ];
+    secoes.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = secaoSelecionada === "" || secaoSelecionada === id ? "block" : "none";
+      }
+    });
+  }
+  window.onload = exibirSecao;
+</script>
+{% endblock %}

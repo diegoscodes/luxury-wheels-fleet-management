@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Forma de Pagamento</title>
+</head>
+<body>
+    <h1>Editar Forma de Pagamento</h1>
+    <form method="POST">
+        Tipo: <input type="text" name="tipo" value="{{ forma[1] }}" required><br>
+        Descrição: <input type="text" name="descricao" value="{{ forma[2] }}"><br>
+        <button type="submit">Salvar</button>
+    </form>
+    <a href="{{ url_for('listar_formas_pagamento') }}">Voltar</a>
+</body>
+</html>

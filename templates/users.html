@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold"><i class="bi bi-people"></i> Clientes Cadastrados</h3>
+        <a href="{{ url_for('adicionar_cliente') }}" class="btn btn-success">
+            <i class="bi bi-person-plus"></i> Novo Cliente
+        </a>
+    </div>
+<!-- 🔍 FORMULÁRIO DE FILTRO -->
+<form method="POST" class="row g-3 mb-4">
+    <div class="col-md-3">
+        <input type="text" class="form-control" name="nome" placeholder="Nome" value="{{ filtro_nome or '' }}">
+    </div>
+
+    <div class="col-md-3">
+        <input type="text" class="form-control" name="email" placeholder="Email" value="{{ filtro_email or '' }}">
+    </div>
+
+    <div class="col-md-3">
+        <input type="text" class="form-control" name="telefone" placeholder="Telefone" value="{{ filtro_telefone or '' }}">
+    </div>
+
+    <div class="col-md-2 d-grid">
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+
+    <div class="col-md-1 d-grid">
+        <a href="{{ url_for('listar_clientes') }}" class="btn btn-outline-secondary">Limpar</a>
+    </div>
+</form>
+
+
+    {% if clientes %}
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in clientes %}
+                        <tr class="text-center">
+                            <td>{{ c[0] }}</td>
+                            <td>{{ c[1] }}</td>
+                            <td>{{ c[2] }}</td>
+                            <td>{{ c[3] }}</td>
+                            <td>
+                                <a href="{{ url_for('editar_cliente', id=c[0]) }}" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <form action="{{ url_for('deletar_cliente', id=c[0]) }}" method="POST" style="display:inline-block;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este cliente?')">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            Nenhum cliente cadastrado no momento.
+        </div>
+    {% endif %}
+{% endblock %}

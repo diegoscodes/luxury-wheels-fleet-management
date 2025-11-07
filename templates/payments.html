@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="fw-bold mb-0"><i class="bi bi-credit-card"></i> Pagamentos</h3>
+    <a href="{{ url_for('adicionar_pagamento') }}" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Novo Pagamento
+    </a>
+</div>
+
+<!-- 🔍 FORMULÁRIO DE FILTRO -->
+<form method="POST" class="row g-3 mb-4">
+    <div class="col-md-3">
+        <input type="text" class="form-control" name="cliente" placeholder="Cliente" value="{{ filtro_cliente or '' }}">
+    </div>
+    <div class="col-md-2">
+        <select class="form-select" name="status">
+            <option value="">Status</option>
+            <option value="pago" {% if filtro_status == 'pago' %}selected{% endif %}>Pago</option>
+            <option value="pendente" {% if filtro_status == 'pendente' %}selected{% endif %}>Pendente</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <input type="date" class="form-control" name="data_inicio" value="{{ filtro_data_inicio or '' }}">
+    </div>
+    <div class="col-md-2">
+        <input type="date" class="form-control" name="data_fim" value="{{ filtro_data_fim or '' }}">
+    </div>
+    <div class="col-md-2 d-grid">
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+    <div class="col-md-1 d-grid">
+        <a href="{{ url_for('listar_pagamentos') }}" class="btn btn-outline-secondary">Limpar</a>
+    </div>
+</form>
+
+
+
+
+    {% if pagamentos %}
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Forma</th>
+                        <th>Valor</th>
+                        <th>Data Pagamento</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in pagamentos %}
+                        <tr class="text-center">
+                            <td>{{ p[0] }}</td>
+                            <td>{{ p[2] }}</td>
+                            <td>{{ p[4] }}</td>
+                            <td>R$ {{ p[5] }}</td>
+                            <td>{{ p[6] }}</td>
+                            <td>{{ p[7] }}</td>
+                            <td>
+                                <a href="{{ url_for('editar_pagamento', id=p[0]) }}" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <form action="{{ url_for('deletar_pagamento', id=p[0]) }}" method="POST" style="display:inline-block;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este pagamento?')">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            Nenhum pagamento registrado.
+        </div>
+    {% endif %}
+{% endblock %}

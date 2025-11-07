@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold"><i class="bi bi-credit-card"></i> Pagamentos</h3>
+        <a href="{{ url_for('adicionar_pagamento') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Novo Pagamento
+        </a>
+    </div>
+
+    {% if pagamentos %}
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Forma</th>
+                        <th>Valor</th>
+                        <th>Data Pagamento</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in pagamentos %}
+                        <tr class="text-center">
+                            <td>{{ p[0] }}</td>
+                            <td>{{ p[2] }}</td>
+                            <td>{{ p[4] }}</td>
+                            <td>R$ {{ p[5] }}</td>
+                            <td>{{ p[6] }}</td>
+                            <td>{{ p[7] }}</td>
+                            <td>
+                                <a href="{{ url_for('editar_pagamento', id=p[0]) }}" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <form action="{{ url_for('deletar_pagamento', id=p[0]) }}" method="POST" style="display:inline-block;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este pagamento?')">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            Nenhum pagamento registrado.
+        </div>
+    {% endif %}
+{% endblock %}
