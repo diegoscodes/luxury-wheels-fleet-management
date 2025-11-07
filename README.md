@@ -104,7 +104,7 @@ luxurywheels_fleet/
 
 | Feature           | Screenshot                                          |
 | ----------------- | --------------------------------------------------- |
-| Login             | ![Login](entrega_final/prints/login.png)         |
+| Login             | ![Login](entrega_final/prints/Login.png)         |
 | Dashboard         | ![Dashboard](entrega_final/prints/dashboard.png) |
 | Vehicle List      | ![Vehicles](entrega_final/prints/veiculos.png)   |
 | Client Management | ![Clients](entrega_final/prints/clientes.png)    |
