@@ -104,15 +104,16 @@ luxurywheels_fleet/
 
 | Feature | Screenshot |
 |----------|-------------|
-| 🏠 **Dashboard** | ![Dashboard](./entrega_final/prints/Dashboard.png) |
-| 🔑 **Login Page** | ![Login](./entrega_final/prints/Login.png) |
-| 🚘 **Vehicles Management** | ![Vehicles](./entrega_final/prints/Página Veículos.png) |
-| 📅 **Reservations Page** | ![Reservations](./entrega_final/prints/Página Reservas.png) |
-| 💳 **Payments Page** | ![Payments](./entrega_final/prints/Página Pagamentos.png) |
-| 👥 **Clients Page** | ![Clients](./entrega_final/prints/Página Clientes.png) |
-| 🛠️ **Edit Vehicle Form** | ![Edit Vehicle](./entrega_final/prints/editar_veiculo.png) |
-| 🔧 **Maintenance Page** | ![Maintenance](./entrega_final/prints/Página Manutenções.png) |
-| 👤 **Users Page** (opcional) | ![Users](./entrega_final/prints/Página Usuários.png) |
+| 🏠 **Dashboard** | ![Dashboard](./entrega_final/prints/dashboard.png) |
+| 🔑 **Login Page** | ![Login](./entrega_final/prints/login.png) |
+| 🚘 **Vehicles Management** | ![Vehicles](./entrega_final/prints/vehicles.png) |
+| 📅 **Reservations Page** | ![Reservations](./entrega_final/prints/reservations.png) |
+| 💳 **Payments Page** | ![Payments](./entrega_final/prints/payments.png) |
+| 👥 **Clients Page** | ![Clients](./entrega_final/prints/clients.png) |
+| 🛠️ **Edit Vehicle Form** | ![Edit Vehicle](./entrega_final/prints/edit-vehicle.png) |
+| 🔧 **Maintenance Page** | ![Maintenance](./entrega_final/prints/maintenance.png) |
+| 👤 **Users Page** | ![Users](./entrega_final/prints/users.png) |
+
 
 
 ---
