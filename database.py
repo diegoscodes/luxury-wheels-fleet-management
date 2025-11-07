@@ -1,5 +1,6 @@
 import os
 import sqlite3
+<<<<<<< HEAD
 import sys
 
 # Corrige o caminho dependendo se está rodando via Python ou como .exe
@@ -9,13 +10,22 @@ else:
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Caminho do script
 
 DB_PATH = os.path.join(BASE_DIR, "luxurywheels.db")
+=======
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Obtém a pasta do script
+DB_PATH = os.path.join(BASE_DIR, "luxurywheels.db")   # Junta com o banco de dados
+>>>>>>> ff9940ee3733b637932b1d1c4cdb8578dc32b291
 
 def conectar_bd():
     return sqlite3.connect(DB_PATH)
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ff9940ee3733b637932b1d1c4cdb8578dc32b291
 def criar_tabelas():
     conexao = conectar_bd()
     cursor = conexao.cursor()
@@ -24,11 +34,18 @@ def criar_tabelas():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+<<<<<<< HEAD
             nome TEXT,
             usuario TEXT NOT NULL UNIQUE,
             senha TEXT NOT NULL
         )
     """)
+=======
+            usuario TEXT NOT NULL,
+            senha TEXT NOT NULL
+        )
+        """)
+>>>>>>> ff9940ee3733b637932b1d1c4cdb8578dc32b291
 
     # Criar um usuário admin se não existir
     cursor.execute("SELECT * FROM usuarios WHERE usuario = 'admin'")

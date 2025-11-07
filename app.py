@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, send_file, url_for, flash
+<<<<<<< HEAD
 from werkzeug.security import generate_password_hash, check_password_hash
+=======
+>>>>>>> ff9940ee3733b637932b1d1c4cdb8578dc32b291
 from database import criar_tabelas, conectar_bd
 from datetime import datetime, timedelta, date
 import matplotlib.ticker as mticker
@@ -137,20 +140,33 @@ def login():
 
         conexao = conectar_bd()
         cursor = conexao.cursor()
+<<<<<<< HEAD
         cursor.execute("SELECT * FROM usuarios WHERE usuario=?", (usuario,))
         user = cursor.fetchone()
         conexao.close()
 
         if user and check_password_hash(user[3], senha):
+=======
+        cursor.execute("SELECT * FROM usuarios WHERE usuario=? AND senha=?", (usuario, senha))
+        user = cursor.fetchone()
+        conexao.close()
+
+        if user:
+>>>>>>> ff9940ee3733b637932b1d1c4cdb8578dc32b291
             session["usuario"] = user[1]
             flash("Login realizado com sucesso!", "success")
             return redirect(url_for("home"))
         else:
+<<<<<<< HEAD
             flash("Usuário ou senha inválidos!", "danger")
+=======
+            flash("Usuário ou senha inválidos", "danger")
+>>>>>>> ff9940ee3733b637932b1d1c4cdb8578dc32b291
 
     return render_template("login.html")
 
 
+<<<<<<< HEAD
 @app.route("/register", methods=["POST"])
 def register():
     nome = request.form["nome"]
@@ -180,6 +196,8 @@ def register():
 
 
 
+=======
+>>>>>>> ff9940ee3733b637932b1d1c4cdb8578dc32b291
 @app.route("/logout")
 def logout():
     session.clear()
