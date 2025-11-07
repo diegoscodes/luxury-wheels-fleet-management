@@ -104,12 +104,12 @@ luxurywheels_fleet/
 
 | Feature           | Screenshot                                          |
 | ----------------- | --------------------------------------------------- |
-| Login             | ![Login](entrega_final/prints/01_login.png)         |
-| Dashboard         | ![Dashboard](entrega_final/prints/02_dashboard.png) |
-| Vehicle List      | ![Vehicles](entrega_final/prints/03_veiculos.png)   |
-| Client Management | ![Clients](entrega_final/prints/07_clientes.png)    |
-| Reservations      | ![Bookings](entrega_final/prints/08_reservas.png)   |
-| Payments          | ![Payments](entrega_final/prints/09_pagamentos.png) |
+| Login             | ![Login](entrega_final/prints/login.png)         |
+| Dashboard         | ![Dashboard](entrega_final/prints/dashboard.png) |
+| Vehicle List      | ![Vehicles](entrega_final/prints/veiculos.png)   |
+| Client Management | ![Clients](entrega_final/prints/clientes.png)    |
+| Reservations      | ![Bookings](entrega_final/prints/reservas.png)   |
+| Payments          | ![Payments](entrega_final/prints/pagamentos.png) |
 
 ---
 
