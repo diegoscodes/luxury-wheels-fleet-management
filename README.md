@@ -104,8 +104,8 @@ luxurywheels_fleet/
 
 | Feature | Screenshot |
 |----------|-------------|
-| 🏠 **Dashboard** | ![Dashboard](./entrega_final/prints/dashboard.png) |
 | 🔑 **Login Page** | ![Login](./entrega_final/prints/login.png) |
+| 🏠 **Dashboard** | ![Dashboard](./entrega_final/prints/dashboard.png) |
 | 🚘 **Vehicles Management** | ![Vehicles](./entrega_final/prints/vehicles.png) |
 | 📅 **Reservations Page** | ![Reservations](./entrega_final/prints/reservations.png) |
 | 💳 **Payments Page** | ![Payments](./entrega_final/prints/payments.png) |
